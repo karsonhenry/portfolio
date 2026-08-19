@@ -266,6 +266,22 @@
     line-height:1.6;
     font-size:0.95rem;
   }
+  .gallery{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.6rem;
+  }
+  .gallery img{
+    width:100%;
+    display:block;
+    border-radius:10px;
+    border:1px solid var(--card-border);
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .gallery img:hover{
+    transform:translateY(-3px);
+    border-color:var(--gold-dim);
+  }
   .tags{
     display:flex; flex-wrap:wrap; gap:0.5rem;
     margin-top:0.25rem;
@@ -371,7 +387,11 @@
     <div class="card reveal">
       <span class="status">Live</span>
       <h3>K.co Hosts</h3>
-      <p>A property-operations layer for short-term-rental co-hosts. Sits alongside Airbnb and handles what booking platforms don't: house condition, maintenance, cleaner dispatch, and smart-device health across 8–9 properties.</p>
+      <p>A property-operations layer for a short-term-rental co-host managing 8–9 Jamaica properties. Airbnb bookings are read-only input data, not the product — this owns what booking platforms don't: house condition, cleaner dispatch, guest-comms prep, and per-property status, walled off across separate admin/cleaner/guest/manager roles.</p>
+      <div class="gallery">
+        <img src="assets/kohosts-properties.png" alt="K.co Hosts mobile PWA — all-properties status list" loading="lazy">
+        <img src="assets/kohosts-bookings.png" alt="K.co Hosts mobile PWA — booking requests view" loading="lazy">
+      </div>
       <div class="tags">
         <span class="tag">Node.js</span>
         <span class="tag">Express</span>
@@ -421,7 +441,7 @@
 const phrases = [
   "Local-first AI. Real hardware. No cloud dependency.",
   "Building tools I actually use.",
-  "Property ops, voice assistants, and whatever's next."
+  "Property ops, local generative AI model training, and whatever's next."
 ];
 const taglineEl = document.getElementById('tagline-text');
 let pIdx = 0, cIdx = 0, deleting = false;
