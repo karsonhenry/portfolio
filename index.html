@@ -235,10 +235,6 @@
     border-color:var(--gold-dim);
     box-shadow:0 20px 40px -20px rgba(0,0,0,0.6);
   }
-  .card.featured{
-    grid-column:span 2;
-  }
-  @media(max-width:700px){ .card.featured{grid-column:span 1;} }
 
   .card .status{
     align-self:flex-start;
@@ -281,6 +277,12 @@
   .gallery img:hover{
     transform:translateY(-3px);
     border-color:var(--gold-dim);
+  }
+  .img-placeholder{
+    aspect-ratio:1080/2245;
+    border-radius:10px;
+    border:1px dashed var(--card-border);
+    background:var(--bg-alt);
   }
   .tags{
     display:flex; flex-wrap:wrap; gap:0.5rem;
@@ -367,10 +369,14 @@
 
   <div class="projects">
 
-    <div class="card featured reveal">
+    <div class="card reveal">
       <span class="status">Active</span>
       <h3>NORA</h3>
       <p>Networked Operational Reasoning Assistant — a local-first, Jarvis-style AI assistant for Windows. Runs its brain, voice, and hearing entirely on-device: a local LLM, streaming TTS, and speech-to-text, with an optional phone/PWA remote. No cloud required for the core loop.</p>
+      <div class="gallery">
+        <div class="img-placeholder"></div>
+        <div class="img-placeholder"></div>
+      </div>
       <div class="tags">
         <span class="tag">Python</span>
         <span class="tag">Local LLM</span>
@@ -391,6 +397,10 @@
       <div class="gallery">
         <img src="assets/kohosts-properties.png" alt="K.co Hosts mobile PWA — all-properties status list" loading="lazy">
         <img src="assets/kohosts-bookings.png" alt="K.co Hosts mobile PWA — booking requests view" loading="lazy">
+        <img src="assets/kohosts-revenue.png" alt="K.co Hosts mobile PWA — revenue trend dashboard" loading="lazy">
+        <img src="assets/kohosts-earnings.png" alt="K.co Hosts mobile PWA — per-property earnings breakdown" loading="lazy">
+        <img src="assets/kohosts-cleaners.png" alt="K.co Hosts mobile PWA — cleaner account management" loading="lazy">
+        <img src="assets/kohosts-guests.png" alt="K.co Hosts mobile PWA — guest account management" loading="lazy">
       </div>
       <div class="tags">
         <span class="tag">Node.js</span>
