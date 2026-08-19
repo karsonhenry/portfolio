@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karson Henry — Portfolio</title>
+<meta name="description" content="Karson Henry — projects: NORA, K.co Hosts, and more.">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --bg-alt:#121212;
+    --card:#161616;
+    --card-border:#2c2c2c;
+    --text:#f2f2f2;
+    --text-dim:#9a9a9a;
+    --gold:#f2f2f2;
+    --gold-dim:#8a8a8a;
+    --accent2:#c9c9c9;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
+    overflow-x:hidden;
+  }
+  a{color:var(--gold); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ---------- background particles ---------- */
+  #particles{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:2rem;
+    z-index:1;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.10), transparent 55%),
+      radial-gradient(ellipse at 75% 70%, rgba(255,255,255,0.10), transparent 55%);
+  }
+  .hero h1{
+    font-size:clamp(2.5rem, 7vw, 4.5rem);
+    margin:0;
+    letter-spacing:-1px;
+    background:linear-gradient(120deg, var(--gold), #ffffff 40%, var(--gold));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero .tagline{
+    margin-top:0.75rem;
+    font-size:clamp(1rem, 2.4vw, 1.35rem);
+    color:var(--text-dim);
+    min-height:1.6em;
+  }
+  .hero .tagline .cursor{
+    display:inline-block;
+    width:2px;
+    background:var(--gold);
+    margin-left:2px;
+    animation:blink 0.9s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+  .hero .links{
+    margin-top:2rem;
+    display:flex;
+    gap:1.25rem;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .btn{
+    padding:0.7rem 1.4rem;
+    border-radius:999px;
+    border:1px solid var(--card-border);
+    background:var(--card);
+    color:var(--text);
+    font-size:0.95rem;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .btn:hover{
+    transform:translateY(-3px);
+    border-color:var(--gold-dim);
+    box-shadow:0 10px 30px -10px rgba(255,255,255,0.35);
+    text-decoration:none;
+  }
+  .btn.primary{
+    background:linear-gradient(120deg, var(--gold), var(--gold-dim));
+    color:#0a0a0a;
+    font-weight:600;
+    border:none;
+  }
+  .scroll-hint{
+    position:absolute;
+    bottom:2rem;
+    color:var(--text-dim);
+    font-size:0.8rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    animation:float 2.4s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(8px);}
+  }
+
+  /* ---------- sections ---------- */
+  section{
+    position:relative; z-index:1;
+    max-width:1080px;
+    margin:0 auto;
+    padding:6rem 1.5rem;
+  }
+  .section-title{
+    font-size:clamp(1.6rem, 4vw, 2.2rem);
+    margin-bottom:0.5rem;
+    color:var(--text);
+  }
+  .section-sub{
+    color:var(--text-dim);
+    margin-bottom:3rem;
+    max-width:640px;
+    line-height:1.6;
+  }
+
+  .reveal{
+    opacity:1;
+    transform:none;
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.pending{
+    opacity:0;
+    transform:translateY(28px);
+  }
+  .reveal.pending.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ---------- project cards ---------- */
+  .projects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+    gap:1.5rem;
+  }
+  .card{
+    background:linear-gradient(160deg, var(--card), var(--bg-alt));
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:1.75rem;
+    display:flex;
+    flex-direction:column;
+    gap:0.9rem;
+    transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(255,255,255,0.10), transparent 60%);
+    opacity:0;
+    transition:opacity .3s ease;
+    pointer-events:none;
+  }
+  .card:hover::before{opacity:1;}
+  .card:hover{
+    transform:translateY(-6px);
+    border-color:var(--gold-dim);
+    box-shadow:0 20px 40px -20px rgba(0,0,0,0.6);
+  }
+  .card.featured{
+    grid-column:span 2;
+  }
+  @media(max-width:700px){ .card.featured{grid-column:span 1;} }
+
+  .card .status{
+    align-self:flex-start;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    padding:0.25rem 0.6rem;
+    border-radius:999px;
+    background:rgba(255,255,255,0.12);
+    color:var(--gold);
+    border:1px solid rgba(255,255,255,0.35);
+  }
+  .card.placeholder .status{
+    background:rgba(154,154,154,0.10);
+    color:var(--text-dim);
+    border-color:var(--card-border);
+  }
+  .card h3{
+    margin:0;
+    font-size:1.4rem;
+  }
+  .card p{
+    margin:0;
+    color:var(--text-dim);
+    line-height:1.6;
+    font-size:0.95rem;
+  }
+  .tags{
+    display:flex; flex-wrap:wrap; gap:0.5rem;
+    margin-top:0.25rem;
+  }
+  .tag{
+    font-size:0.72rem;
+    padding:0.25rem 0.6rem;
+    border-radius:6px;
+    background:var(--bg-alt);
+    border:1px solid var(--card-border);
+    color:var(--accent2);
+  }
+  .card-links{
+    margin-top:auto;
+    display:flex;
+    gap:1rem;
+    padding-top:0.5rem;
+  }
+  .card.placeholder{
+    border-style:dashed;
+    opacity:0.7;
+  }
+  .card.placeholder h3, .card.placeholder p{ color:var(--text-dim); }
+
+  /* ---------- skills ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+    gap:1rem;
+  }
+  .skill-pill{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:10px;
+    padding:0.9rem 1rem;
+    font-size:0.9rem;
+    color:var(--text-dim);
+    transition:border-color .25s ease, color .25s ease, transform .25s ease;
+  }
+  .skill-pill:hover{
+    border-color:var(--gold-dim);
+    color:var(--text);
+    transform:translateY(-2px);
+  }
+
+  footer{
+    position:relative; z-index:1;
+    text-align:center;
+    padding:4rem 1.5rem 3rem;
+    color:var(--text-dim);
+    font-size:0.85rem;
+  }
+  footer a{ color:var(--text); }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<section class="hero">
+  <h1>Karson Henry</h1>
+  <div class="tagline" id="tagline"><span id="tagline-text"></span><span class="cursor">&nbsp;</span></div>
+  <div class="links">
+    <a class="btn primary" href="#projects">View Projects</a>
+    <a class="btn" href="https://github.com/karsonhenry" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <div class="scroll-hint">scroll ↓</div>
+</section>
+
+<section id="projects">
+  <h2 class="section-title reveal">Featured Projects</h2>
+  <p class="section-sub reveal">Local-first AI, property-ops tooling, and whatever's next.</p>
+
+  <div class="projects">
+
+    <div class="card featured reveal">
+      <span class="status">Active</span>
+      <h3>NORA</h3>
+      <p>Networked Operational Reasoning Assistant — a local-first, Jarvis-style AI assistant for Windows. Runs its brain, voice, and hearing entirely on-device: a local LLM, streaming TTS, and speech-to-text, with an optional phone/PWA remote. No cloud required for the core loop.</p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">Local LLM</span>
+        <span class="tag">llama-cpp</span>
+        <span class="tag">Streaming TTS</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">PWA</span>
+      </div>
+      <div class="card-links">
+        <a href="https://github.com/karsonhenry/NoRA" target="_blank" rel="noopener">Repo →</a>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <span class="status">Live</span>
+      <h3>K.co Hosts</h3>
+      <p>A property-operations layer for short-term-rental co-hosts. Sits alongside Airbnb and handles what booking platforms don't: house condition, maintenance, cleaner dispatch, and smart-device health across 8–9 properties.</p>
+      <div class="tags">
+        <span class="tag">Node.js</span>
+        <span class="tag">Express</span>
+        <span class="tag">React</span>
+        <span class="tag">SQLite</span>
+        <span class="tag">Tailwind</span>
+        <span class="tag">PWA</span>
+      </div>
+      <div class="card-links">
+        <a href="https://kcohosts.duckdns.org" target="_blank" rel="noopener">Live demo →</a>
+      </div>
+    </div>
+
+    <div class="card placeholder reveal">
+      <span class="status">Coming soon</span>
+      <h3>Minesweeper</h3>
+      <p>Next up on the board. Details land here once it's ready to show.</p>
+      <div class="tags">
+        <span class="tag">TBD</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+  <h2 class="section-title reveal">Toolbox</h2>
+  <p class="section-sub reveal">What most of the above gets built with.</p>
+  <div class="skills-grid">
+    <div class="skill-pill reveal">Python</div>
+    <div class="skill-pill reveal">JavaScript / TypeScript</div>
+    <div class="skill-pill reveal">React + Vite</div>
+    <div class="skill-pill reveal">Node.js / Express</div>
+    <div class="skill-pill reveal">SQLite</div>
+    <div class="skill-pill reveal">Local LLMs (llama.cpp)</div>
+    <div class="skill-pill reveal">Streaming TTS/STT</div>
+    <div class="skill-pill reveal">PWA / offline-first</div>
+  </div>
+</section>
+
+<footer class="reveal">
+  <p>Built by Karson Henry · <a href="https://github.com/karsonhenry" target="_blank" rel="noopener">github.com/karsonhenry</a></p>
+</footer>
+
+<script>
+// ---- typewriter tagline ----
+const phrases = [
+  "Local-first AI. Real hardware. No cloud dependency.",
+  "Building tools I actually use.",
+  "Property ops, voice assistants, and whatever's next."
+];
+const taglineEl = document.getElementById('tagline-text');
+let pIdx = 0, cIdx = 0, deleting = false;
+function typeLoop(){
+  const phrase = phrases[pIdx];
+  if(!deleting){
+    cIdx++;
+    taglineEl.textContent = phrase.slice(0, cIdx);
+    if(cIdx === phrase.length){ deleting = true; setTimeout(typeLoop, 1800); return; }
+  } else {
+    cIdx--;
+    taglineEl.textContent = phrase.slice(0, cIdx);
+    if(cIdx === 0){ deleting = false; pIdx = (pIdx+1) % phrases.length; }
+  }
+  setTimeout(typeLoop, deleting ? 35 : 55);
+}
+typeLoop();
+
+// ---- scroll reveal ----
+const revealEls = document.querySelectorAll('.reveal');
+revealEls.forEach(el=>el.classList.add('pending'));
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, {threshold:0.15});
+revealEls.forEach(el=>io.observe(el));
+
+// ---- card cursor-follow glow ----
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('mousemove', (e)=>{
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', ((e.clientX - r.left)/r.width*100)+'%');
+    card.style.setProperty('--my', ((e.clientY - r.top)/r.height*100)+'%');
+  });
+});
+
+// ---- floating particles background ----
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let w, h, particles;
+function resize(){
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+function initParticles(){
+  const count = Math.min(120, Math.floor(window.innerWidth/12));
+  particles = Array.from({length:count}, ()=>({
+    x: Math.random()*w,
+    y: Math.random()*h,
+    r: Math.random()*1.4 + 0.5,
+    vx: (Math.random()-0.5)*0.08,
+    vy: (Math.random()-0.5)*0.08,
+    base: Math.random()*0.4 + 0.15,
+    amp: Math.random()*0.5 + 0.3,
+    phase: Math.random()*Math.PI*2,
+    speed: Math.random()*0.02 + 0.008
+  }));
+}
+let t = 0;
+function tick(){
+  t++;
+  ctx.clearRect(0,0,w,h);
+  particles.forEach(p=>{
+    p.x += p.vx; p.y += p.vy;
+    if(p.x < 0) p.x = w; if(p.x > w) p.x = 0;
+    if(p.y < 0) p.y = h; if(p.y > h) p.y = 0;
+    const twinkle = Math.sin(t*p.speed + p.phase);
+    const a = Math.max(0, p.base + twinkle*p.amp);
+    const r = p.r * (0.8 + twinkle*0.25);
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, Math.max(0.1,r), 0, Math.PI*2);
+    ctx.fillStyle = `rgba(255,255,255,${Math.min(1,a)})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(tick);
+}
+window.addEventListener('resize', ()=>{ resize(); initParticles(); });
+resize(); initParticles(); tick();
+</script>
+
+</body>
+</html>
