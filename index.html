@@ -177,6 +177,15 @@
     margin:0 auto;
     padding:6rem 1.5rem;
   }
+  .profile-photo{
+    display:block;
+    margin:0 auto 2rem;
+    width:min(220px, 40vw);
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border-radius:50%;
+    border:1px solid var(--card-border);
+  }
   .section-title{
     font-size:clamp(1.6rem, 4vw, 2.2rem);
     margin-bottom:0.5rem;
@@ -364,6 +373,7 @@
 </section>
 
 <section id="projects">
+  <img class="profile-photo reveal" src="assets/me.png" alt="Karson Henry">
   <h2 class="section-title reveal">Featured Projects</h2>
   <p class="section-sub reveal">Local-first AI, property-ops tooling, and whatever's next.</p>
 
