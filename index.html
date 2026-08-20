@@ -50,11 +50,7 @@
       radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.10), transparent 55%),
       radial-gradient(ellipse at 75% 70%, rgba(255,255,255,0.10), transparent 55%);
   }
-  .intro{
-    text-align:center;
-    margin-bottom:3rem;
-  }
-  .intro h1{
+  .hero h1{
     position:relative;
     font-size:clamp(2.5rem, 7vw, 4.5rem);
     margin:0;
@@ -67,18 +63,14 @@
 
   /* ---------- orbit ring ---------- */
   .orbit-wrap{
-    position:absolute;
-    inset:0;
-    z-index:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    pointer-events:none;
-  }
-  .orbit-ring{
     position:relative;
     width:min(46vmin, 380px);
     height:min(46vmin, 380px);
+    margin:2.5rem 0;
+  }
+  .orbit-ring{
+    position:absolute;
+    inset:0;
     animation:orbit-spin 100s linear infinite;
   }
   @keyframes orbit-spin{ to{ transform:rotate(360deg); } }
@@ -97,30 +89,28 @@
     width:64px;
     height:64px;
     border-radius:50%;
-    border:1px dashed var(--card-border);
+    border:2px solid rgba(255,255,255,0.55);
     background:radial-gradient(circle at 30% 25%, rgba(255,255,255,0.06), transparent 65%), var(--card);
     animation:orbit-spin-reverse 100s linear infinite;
     pointer-events:auto;
     transition:border-color .3s ease, transform .3s ease;
   }
   .orbit-node-inner:hover{
-    border-color:var(--gold-dim);
-    border-style:solid;
+    border-color:#ffffff;
     transform:scale(1.08);
   }
   @keyframes orbit-spin-reverse{ to{ transform:rotate(-360deg); } }
   @media(max-width:600px){
-    .orbit-ring{ width:78vmin; height:78vmin; }
+    .orbit-wrap{ width:78vmin; height:78vmin; }
     .orbit-node{ transform:rotate(calc(var(--i) * 60deg)) translateX(36vmin); }
   }
-  .intro .tagline{
+  .hero .tagline{
     position:relative;
-    margin-top:0.75rem;
     font-size:clamp(1rem, 2.4vw, 1.35rem);
     color:var(--text-dim);
     min-height:1.6em;
   }
-  .intro .tagline .cursor{
+  .hero .tagline .cursor{
     display:inline-block;
     width:2px;
     background:var(--gold);
@@ -128,7 +118,7 @@
     animation:blink 0.9s steps(1) infinite;
   }
   @keyframes blink{50%{opacity:0;}}
-  .intro .links{
+  .hero .links{
     position:relative;
     margin-top:2rem;
     display:flex;
@@ -179,14 +169,20 @@
     padding:6rem 1.5rem;
   }
   .profile-photo{
-    position:relative;
-    z-index:2;
     display:block;
     width:min(220px, 40vw);
     aspect-ratio:1/1;
     object-fit:cover;
     border-radius:50%;
     border:1px solid var(--card-border);
+  }
+  .hero .profile-photo{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    z-index:2;
+    border:3px solid #ffffff;
   }
   .section-title{
     font-size:clamp(1.6rem, 4vw, 2.2rem);
@@ -468,6 +464,7 @@
 <canvas id="particles"></canvas>
 
 <section class="hero">
+  <h1>Karson Henry</h1>
   <div class="orbit-wrap">
     <div class="orbit-ring">
       <div class="orbit-node" style="--i:0"><div class="orbit-node-inner"></div></div>
@@ -477,20 +474,17 @@
       <div class="orbit-node" style="--i:4"><div class="orbit-node-inner"></div></div>
       <div class="orbit-node" style="--i:5"><div class="orbit-node-inner"></div></div>
     </div>
+    <img class="profile-photo" src="assets/me.png" alt="Karson Henry">
   </div>
-  <img class="profile-photo" src="assets/me.png" alt="Karson Henry">
+  <div class="tagline" id="tagline"><span id="tagline-text"></span><span class="cursor">&nbsp;</span></div>
+  <div class="links">
+    <a class="btn primary" href="#project-list">View Projects</a>
+    <a class="btn" href="https://github.com/karsonhenry" target="_blank" rel="noopener">GitHub</a>
+  </div>
   <div class="scroll-hint">scroll ↓</div>
 </section>
 
 <section id="projects">
-  <div class="intro reveal">
-    <h1>Karson Henry</h1>
-    <div class="tagline" id="tagline"><span id="tagline-text"></span><span class="cursor">&nbsp;</span></div>
-    <div class="links">
-      <a class="btn primary" href="#project-list">View Projects</a>
-      <a class="btn" href="https://github.com/karsonhenry" target="_blank" rel="noopener">GitHub</a>
-    </div>
-  </div>
   <h2 class="section-title reveal">Featured Projects</h2>
   <p class="section-sub reveal">Local-first AI, property-ops tooling, and whatever's next.</p>
 
@@ -535,8 +529,8 @@
             <img src="assets/kohosts-desktop-frontend.jpg" alt="Desktop customer frontend" loading="lazy">
             <span class="gallery-caption">Desktop — customer frontend</span>
           </button>
-          <button type="button" class="gallery-item" data-full="assets/kohosts-desktop-dashboard.png" data-caption="Desktop admin dashboard — every property, issue, and to-do in one board">
-            <img src="assets/kohosts-desktop-dashboard.png" alt="Desktop admin dashboard" loading="lazy">
+          <button type="button" class="gallery-item" data-full="assets/kohosts-desktop-dashboard-v2.png" data-caption="Desktop admin dashboard — every property, issue, and to-do in one board">
+            <img src="assets/kohosts-desktop-dashboard-v2.png" alt="Desktop admin dashboard" loading="lazy">
             <span class="gallery-caption">Desktop — dashboard</span>
           </button>
         </div>
