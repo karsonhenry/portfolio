@@ -271,27 +271,130 @@
     line-height:1.6;
     font-size:0.95rem;
   }
+  .card-head{
+    display:flex;
+    align-items:center;
+    gap:0.7rem;
+  }
+  .card-logo{
+    width:32px;
+    height:32px;
+    border-radius:8px;
+    object-fit:cover;
+    border:1px solid var(--card-border);
+  }
   .gallery{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:0.6rem;
   }
-  .gallery img{
-    width:100%;
+  .gallery-item{
+    position:relative;
     display:block;
-    border-radius:10px;
+    width:100%;
+    padding:0;
+    margin:0;
     border:1px solid var(--card-border);
+    border-radius:10px;
+    background:none;
+    cursor:zoom-in;
+    overflow:hidden;
     transition:transform .3s ease, border-color .3s ease;
   }
-  .gallery img:hover{
+  .gallery-item img{
+    width:100%;
+    display:block;
+  }
+  .gallery-item:hover,
+  .gallery-item:focus-visible{
     transform:translateY(-3px);
     border-color:var(--gold-dim);
+    outline:none;
+  }
+  .gallery-caption{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding:0.4rem 0.55rem;
+    font-size:0.72rem;
+    color:var(--text);
+    background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    text-align:left;
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  .gallery-item:hover .gallery-caption,
+  .gallery-item:focus-visible .gallery-caption{
+    opacity:1;
   }
   .img-placeholder{
     aspect-ratio:1080/2245;
     border-radius:10px;
     border:1px dashed var(--card-border);
     background:var(--bg-alt);
+  }
+
+  /* ---------- lightbox ---------- */
+  .lightbox{
+    position:fixed;
+    inset:0;
+    z-index:50;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    background:rgba(6,6,6,0.92);
+    padding:2rem;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox img{
+    max-width:min(90vw, 520px);
+    max-height:70vh;
+    object-fit:contain;
+    border-radius:10px;
+    border:1px solid var(--card-border);
+  }
+  .lightbox-caption{
+    margin-top:1rem;
+    color:var(--text-dim);
+    font-size:0.95rem;
+    max-width:600px;
+    text-align:center;
+  }
+  .lightbox-close{
+    position:absolute;
+    top:1.5rem;
+    right:1.5rem;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    border:1px solid var(--card-border);
+    background:var(--card);
+    color:var(--text);
+    font-size:1.3rem;
+    cursor:pointer;
+    line-height:1;
+  }
+  .lightbox-close:hover{ border-color:var(--gold-dim); }
+  .lightbox-nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:1px solid var(--card-border);
+    background:var(--card);
+    color:var(--text);
+    font-size:1.4rem;
+    cursor:pointer;
+  }
+  .lightbox-nav:hover{ border-color:var(--gold-dim); }
+  .lightbox-nav.prev{ left:1.5rem; }
+  .lightbox-nav.next{ right:1.5rem; }
+  @media(max-width:600px){
+    .lightbox-nav{ width:38px; height:38px; font-size:1.1rem; }
+    .lightbox-nav.prev{ left:0.5rem; }
+    .lightbox-nav.next{ right:0.5rem; }
   }
   .tags{
     display:flex; flex-wrap:wrap; gap:0.5rem;
@@ -381,7 +484,10 @@
 
     <div class="card reveal">
       <span class="status">Active</span>
-      <h3>NORA</h3>
+      <div class="card-head">
+        <img class="card-logo" src="assets/nora-logo.png" alt="">
+        <h3>NORA</h3>
+      </div>
       <p>Networked Operational Reasoning Assistant — a local-first, Jarvis-style AI assistant for Windows. Runs its brain, voice, and hearing entirely on-device: a local LLM, streaming TTS, and speech-to-text, with an optional phone/PWA remote. No cloud required for the core loop.</p>
       <div class="gallery">
         <div class="img-placeholder"></div>
@@ -402,15 +508,36 @@
 
     <div class="card reveal">
       <span class="status">Live</span>
-      <h3>K.co Hosts</h3>
+      <div class="card-head">
+        <img class="card-logo" src="assets/kohosts-logo.png" alt="">
+        <h3>K.co Hosts</h3>
+      </div>
       <p>A property-operations layer for a short-term-rental co-host managing 8–9 Jamaica properties. Airbnb bookings are read-only input data, not the product — this owns what booking platforms don't: house condition, cleaner dispatch, guest-comms prep, and per-property status, walled off across separate admin/cleaner/guest/manager roles.</p>
       <div class="gallery">
-        <img src="assets/kohosts-properties.png" alt="K.co Hosts mobile PWA — all-properties status list" loading="lazy">
-        <img src="assets/kohosts-bookings.png" alt="K.co Hosts mobile PWA — booking requests view" loading="lazy">
-        <img src="assets/kohosts-revenue.png" alt="K.co Hosts mobile PWA — revenue trend dashboard" loading="lazy">
-        <img src="assets/kohosts-earnings.png" alt="K.co Hosts mobile PWA — per-property earnings breakdown" loading="lazy">
-        <img src="assets/kohosts-cleaners.png" alt="K.co Hosts mobile PWA — cleaner account management" loading="lazy">
-        <img src="assets/kohosts-guests.png" alt="K.co Hosts mobile PWA — guest account management" loading="lazy">
+        <button type="button" class="gallery-item" data-full="assets/kohosts-properties.png" data-caption="All 7 properties at a glance, sorted by what needs attention first">
+          <img src="assets/kohosts-properties.png" alt="All-properties status list" loading="lazy">
+          <span class="gallery-caption">Property status overview</span>
+        </button>
+        <button type="button" class="gallery-item" data-full="assets/kohosts-bookings.png" data-caption="Booking requests from the public site — nothing is locked in until confirmed by hand">
+          <img src="assets/kohosts-bookings.png" alt="Booking requests view" loading="lazy">
+          <span class="gallery-caption">Booking requests</span>
+        </button>
+        <button type="button" class="gallery-item" data-full="assets/kohosts-revenue.png" data-caption="Monthly revenue trend across owned and co-hosted properties">
+          <img src="assets/kohosts-revenue.png" alt="Revenue trend dashboard" loading="lazy">
+          <span class="gallery-caption">Revenue trend</span>
+        </button>
+        <button type="button" class="gallery-item" data-full="assets/kohosts-earnings.png" data-caption="Per-property commission and earnings breakdown">
+          <img src="assets/kohosts-earnings.png" alt="Per-property earnings breakdown" loading="lazy">
+          <span class="gallery-caption">Per-property earnings</span>
+        </button>
+        <button type="button" class="gallery-item" data-full="assets/kohosts-cleaners.png" data-caption="Cleaner accounts — assign properties, issue PINs, deactivate on the fly">
+          <img src="assets/kohosts-cleaners.png" alt="Cleaner account management" loading="lazy">
+          <span class="gallery-caption">Cleaner accounts</span>
+        </button>
+        <button type="button" class="gallery-item" data-full="assets/kohosts-guests.png" data-caption="Guest account management, separate from cleaner and manager roles">
+          <img src="assets/kohosts-guests.png" alt="Guest account management" loading="lazy">
+          <span class="gallery-caption">Guest accounts</span>
+        </button>
       </div>
       <div class="tags">
         <span class="tag">Node.js</span>
@@ -446,6 +573,14 @@
 <footer class="reveal">
   <p>Built by Karson Henry · <a href="https://github.com/karsonhenry" target="_blank" rel="noopener">github.com/karsonhenry</a></p>
 </footer>
+
+<div class="lightbox" id="lightbox">
+  <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+  <button type="button" class="lightbox-nav prev" id="lightbox-prev" aria-label="Previous image">&#8249;</button>
+  <img id="lightbox-img" src="" alt="">
+  <p class="lightbox-caption" id="lightbox-caption"></p>
+  <button type="button" class="lightbox-nav next" id="lightbox-next" aria-label="Next image">&#8250;</button>
+</div>
 
 <script>
 // ---- typewriter tagline ----
@@ -532,6 +667,59 @@ function tick(){
 }
 window.addEventListener('resize', ()=>{ resize(); initParticles(); });
 resize(); initParticles(); tick();
+
+// ---- lightbox ----
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCaption = document.getElementById('lightbox-caption');
+const lightboxPrev = document.getElementById('lightbox-prev');
+const lightboxNext = document.getElementById('lightbox-next');
+const lightboxClose = document.getElementById('lightbox-close');
+
+let currentGroup = [];
+let currentIndex = 0;
+
+function openLightbox(group, index){
+  currentGroup = group;
+  currentIndex = index;
+  renderLightbox();
+  lightbox.classList.add('open');
+}
+function renderLightbox(){
+  const item = currentGroup[currentIndex];
+  lightboxImg.src = item.dataset.full;
+  lightboxImg.alt = item.querySelector('img').alt;
+  lightboxCaption.textContent = item.dataset.caption || '';
+  const multi = currentGroup.length > 1;
+  lightboxPrev.style.display = multi ? 'block' : 'none';
+  lightboxNext.style.display = multi ? 'block' : 'none';
+}
+function closeLightbox(){
+  lightbox.classList.remove('open');
+  lightboxImg.src = '';
+}
+function stepLightbox(delta){
+  currentIndex = (currentIndex + delta + currentGroup.length) % currentGroup.length;
+  renderLightbox();
+}
+
+document.querySelectorAll('.gallery').forEach(gallery=>{
+  const items = [...gallery.querySelectorAll('.gallery-item')];
+  items.forEach((item, i)=>{
+    item.addEventListener('click', ()=> openLightbox(items, i));
+  });
+});
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightboxPrev.addEventListener('click', ()=> stepLightbox(-1));
+lightboxNext.addEventListener('click', ()=> stepLightbox(1));
+lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e)=>{
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') stepLightbox(-1);
+  if(e.key === 'ArrowRight') stepLightbox(1);
+});
 </script>
 
 </body>
