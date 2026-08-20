@@ -50,9 +50,12 @@
       radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.10), transparent 55%),
       radial-gradient(ellipse at 75% 70%, rgba(255,255,255,0.10), transparent 55%);
   }
-  .hero h1{
+  .intro{
+    text-align:center;
+    margin-bottom:3rem;
+  }
+  .intro h1{
     position:relative;
-    z-index:2;
     font-size:clamp(2.5rem, 7vw, 4.5rem);
     margin:0;
     letter-spacing:-1px;
@@ -110,15 +113,14 @@
     .orbit-ring{ width:78vmin; height:78vmin; }
     .orbit-node{ transform:rotate(calc(var(--i) * 60deg)) translateX(36vmin); }
   }
-  .hero .tagline{
+  .intro .tagline{
     position:relative;
-    z-index:2;
     margin-top:0.75rem;
     font-size:clamp(1rem, 2.4vw, 1.35rem);
     color:var(--text-dim);
     min-height:1.6em;
   }
-  .hero .tagline .cursor{
+  .intro .tagline .cursor{
     display:inline-block;
     width:2px;
     background:var(--gold);
@@ -126,9 +128,8 @@
     animation:blink 0.9s steps(1) infinite;
   }
   @keyframes blink{50%{opacity:0;}}
-  .hero .links{
+  .intro .links{
     position:relative;
-    z-index:2;
     margin-top:2rem;
     display:flex;
     gap:1.25rem;
@@ -178,8 +179,9 @@
     padding:6rem 1.5rem;
   }
   .profile-photo{
+    position:relative;
+    z-index:2;
     display:block;
-    margin:0 auto 2rem;
     width:min(220px, 40vw);
     aspect-ratio:1/1;
     object-fit:cover;
@@ -476,21 +478,23 @@
       <div class="orbit-node" style="--i:5"><div class="orbit-node-inner"></div></div>
     </div>
   </div>
-  <h1>Karson Henry</h1>
-  <div class="tagline" id="tagline"><span id="tagline-text"></span><span class="cursor">&nbsp;</span></div>
-  <div class="links">
-    <a class="btn primary" href="#projects">View Projects</a>
-    <a class="btn" href="https://github.com/karsonhenry" target="_blank" rel="noopener">GitHub</a>
-  </div>
+  <img class="profile-photo" src="assets/me.png" alt="Karson Henry">
   <div class="scroll-hint">scroll ↓</div>
 </section>
 
 <section id="projects">
-  <img class="profile-photo reveal" src="assets/me.png" alt="Karson Henry">
+  <div class="intro reveal">
+    <h1>Karson Henry</h1>
+    <div class="tagline" id="tagline"><span id="tagline-text"></span><span class="cursor">&nbsp;</span></div>
+    <div class="links">
+      <a class="btn primary" href="#project-list">View Projects</a>
+      <a class="btn" href="https://github.com/karsonhenry" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
   <h2 class="section-title reveal">Featured Projects</h2>
   <p class="section-sub reveal">Local-first AI, property-ops tooling, and whatever's next.</p>
 
-  <div class="projects">
+  <div class="projects" id="project-list">
 
     <div class="card reveal">
       <span class="status">Active</span>
@@ -524,7 +528,7 @@
         <img class="card-logo" src="assets/kohosts-logo.png" alt="">
         <h3>K.co Hosts</h3>
       </div>
-      <p>A property-operations layer for a short-term-rental co-host managing 8–9 Jamaica properties. Airbnb bookings are read-only input data, not the product — this owns what booking platforms don't: house condition, cleaner dispatch, guest-comms prep, and per-property status, walled off across separate admin/cleaner/guest/manager roles.</p>
+      <p>A property-operations layer for a short-term-rental co-host managing 8–9 Jamaica properties. Airbnb bookings are read-only input data, not the product — this owns what booking platforms don't: house condition, cleaner dispatch, guest-comms prep, and per-property status, walled off across separate admin/cleaner/guest/manager roles. It's also its own direct-booking frontend, with full payment processing via PayPal.</p>
       <div class="gallery">
         <div class="gallery-row desktop">
           <button type="button" class="gallery-item" data-full="assets/kohosts-desktop-frontend.jpg" data-caption="Desktop customer-facing site — browse and request stays across all properties">
