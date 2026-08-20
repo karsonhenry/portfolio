@@ -214,8 +214,8 @@
 
   /* ---------- project cards ---------- */
   .projects{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+    display:flex;
+    flex-direction:column;
     gap:1.5rem;
   }
   .card{
@@ -284,9 +284,19 @@
     border:1px solid var(--card-border);
   }
   .gallery{
+    display:flex;
+    flex-direction:column;
+    gap:0.8rem;
+  }
+  .gallery-row{
     display:grid;
-    grid-template-columns:1fr 1fr;
     gap:0.6rem;
+  }
+  .gallery-row.mobile{
+    grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));
+  }
+  .gallery-row.desktop{
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
   }
   .gallery-item{
     position:relative;
@@ -490,8 +500,10 @@
       </div>
       <p>Networked Operational Reasoning Assistant — a local-first, Jarvis-style AI assistant for Windows. Runs its brain, voice, and hearing entirely on-device: a local LLM, streaming TTS, and speech-to-text, with an optional phone/PWA remote. No cloud required for the core loop.</p>
       <div class="gallery">
-        <div class="img-placeholder"></div>
-        <div class="img-placeholder"></div>
+        <div class="gallery-row mobile">
+          <div class="img-placeholder"></div>
+          <div class="img-placeholder"></div>
+        </div>
       </div>
       <div class="tags">
         <span class="tag">Python</span>
@@ -514,30 +526,34 @@
       </div>
       <p>A property-operations layer for a short-term-rental co-host managing 8–9 Jamaica properties. Airbnb bookings are read-only input data, not the product — this owns what booking platforms don't: house condition, cleaner dispatch, guest-comms prep, and per-property status, walled off across separate admin/cleaner/guest/manager roles.</p>
       <div class="gallery">
-        <button type="button" class="gallery-item" data-full="assets/kohosts-mobile-dashboard.png" data-caption="Mobile dashboard — property status at a glance, sorted by what needs attention first">
-          <img src="assets/kohosts-mobile-dashboard.png" alt="Mobile dashboard" loading="lazy">
-          <span class="gallery-caption">Mobile — dashboard</span>
-        </button>
-        <button type="button" class="gallery-item" data-full="assets/kohosts-desktop-frontend.jpg" data-caption="Desktop customer-facing site — browse and request stays across all properties">
-          <img src="assets/kohosts-desktop-frontend.jpg" alt="Desktop customer frontend" loading="lazy">
-          <span class="gallery-caption">Desktop — customer frontend</span>
-        </button>
-        <button type="button" class="gallery-item" data-full="assets/kohosts-desktop-dashboard.png" data-caption="Desktop admin dashboard — every property, issue, and to-do in one board">
-          <img src="assets/kohosts-desktop-dashboard.png" alt="Desktop admin dashboard" loading="lazy">
-          <span class="gallery-caption">Desktop — dashboard</span>
-        </button>
-        <button type="button" class="gallery-item" data-full="assets/kohosts-bookings.png" data-caption="Booking requests from the public site — nothing is locked in until confirmed by hand">
-          <img src="assets/kohosts-bookings.png" alt="Booking requests view" loading="lazy">
-          <span class="gallery-caption">Booking requests</span>
-        </button>
-        <button type="button" class="gallery-item" data-full="assets/kohosts-revenue.png" data-caption="Monthly revenue trend across owned and co-hosted properties">
-          <img src="assets/kohosts-revenue.png" alt="Revenue trend dashboard" loading="lazy">
-          <span class="gallery-caption">Revenue trend</span>
-        </button>
-        <button type="button" class="gallery-item" data-full="assets/kohosts-cleaners.png" data-caption="Cleaner accounts — assign properties, issue PINs, deactivate on the fly">
-          <img src="assets/kohosts-cleaners.png" alt="Cleaner account management" loading="lazy">
-          <span class="gallery-caption">Cleaner accounts</span>
-        </button>
+        <div class="gallery-row desktop">
+          <button type="button" class="gallery-item" data-full="assets/kohosts-desktop-frontend.jpg" data-caption="Desktop customer-facing site — browse and request stays across all properties">
+            <img src="assets/kohosts-desktop-frontend.jpg" alt="Desktop customer frontend" loading="lazy">
+            <span class="gallery-caption">Desktop — customer frontend</span>
+          </button>
+          <button type="button" class="gallery-item" data-full="assets/kohosts-desktop-dashboard.png" data-caption="Desktop admin dashboard — every property, issue, and to-do in one board">
+            <img src="assets/kohosts-desktop-dashboard.png" alt="Desktop admin dashboard" loading="lazy">
+            <span class="gallery-caption">Desktop — dashboard</span>
+          </button>
+        </div>
+        <div class="gallery-row mobile">
+          <button type="button" class="gallery-item" data-full="assets/kohosts-mobile-dashboard.png" data-caption="Mobile dashboard — property status at a glance, sorted by what needs attention first">
+            <img src="assets/kohosts-mobile-dashboard.png" alt="Mobile dashboard" loading="lazy">
+            <span class="gallery-caption">Mobile — dashboard</span>
+          </button>
+          <button type="button" class="gallery-item" data-full="assets/kohosts-bookings.png" data-caption="Booking requests from the public site — nothing is locked in until confirmed by hand">
+            <img src="assets/kohosts-bookings.png" alt="Booking requests view" loading="lazy">
+            <span class="gallery-caption">Booking requests</span>
+          </button>
+          <button type="button" class="gallery-item" data-full="assets/kohosts-revenue.png" data-caption="Monthly revenue trend across owned and co-hosted properties">
+            <img src="assets/kohosts-revenue.png" alt="Revenue trend dashboard" loading="lazy">
+            <span class="gallery-caption">Revenue trend</span>
+          </button>
+          <button type="button" class="gallery-item" data-full="assets/kohosts-cleaners.png" data-caption="Cleaner accounts — assign properties, issue PINs, deactivate on the fly">
+            <img src="assets/kohosts-cleaners.png" alt="Cleaner account management" loading="lazy">
+            <span class="gallery-caption">Cleaner accounts</span>
+          </button>
+        </div>
       </div>
       <div class="tags">
         <span class="tag">Node.js</span>
